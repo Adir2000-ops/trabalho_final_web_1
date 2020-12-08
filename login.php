@@ -1,5 +1,15 @@
-<?php  
-    require_once "./conexao.php";
+<?php
+  require_once "./conexao.php";
+
+  if(!empty($_POST['email']) && !empty($_POST['senha'])){
+
+    $pdo =new PDO();
+    $stmt = $pdo->prepare('SELECT NOME, LOGIN, SENHA FROM USUARIO WHERE LOGIN = : login AND SENHA = : senha');
+    $stmt -> bindParam(': login', $_POST['email']); 
+    $stmt -> bindParam(': senha', $_POST['senha']);
+    $stmt -> execute();
+    $sql = $stmt -> fetch(PDO::FETCH_ASSOC);
+    var_dump($sql);
 
 
     if(!empty($_SESSION['login'])){
@@ -32,22 +42,3 @@
 }
 
 ?>
-<!doctype html>
-<html lang="pt-br">
- <head>
- <link  rel="stylesheet" href="../bootstrap-4.5.3-dist_/css/bootstrap.min.css">
-</head>
-<body>
-<form method="post">
-     <div class="form-group">
-         <label for="email">E-mail</label>
-         <input type="text" class="form-control" name="email" id="email" placeholder="E-mail">
-     </div>
-     <div class="form-group">
-         <label for="senha">Senha</label>
-         <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
-     </div>
-     <button type="submit" class="btn btn-info">Login</button>
-</form>
-</body>
-</html>
