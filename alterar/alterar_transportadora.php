@@ -1,16 +1,17 @@
 <?php
-  require_once "conexao.php";
+
     if(!empty($_POST['descricao'])){
      $descricao = $_POST['descricao'];
      $codigo = $_POST['codigo'];
 
-     $stmt = $conn->prepare("INSERT INTO avaliacao_web.regiao (IDRegiao,DescricaoRegiao) VALUES (:id,:d)");
+     $stmt = $conn->prepare("INSERT INTO desweb.transportadora (IDTransportadora,NomeCompanhia,Telefone) VALUES (:id,:d,:t)");
      $stmt->bindValue(':id', $codigo);
-     $stmt->bindValue(':d', $descricao);
+     $stmt->bindValue(':d', $nome);
+     $stmt->bindValue(':t', $telefone;
      $stmt->execute();
  ?>
  <script>
-  window.location.href = "./regiao.php";
+  window.location.href = "./transportadora.php";
  </script>
 <?php
 }
@@ -27,8 +28,12 @@
          <input type="number" class="form-control" name="codigo" id="codigo" placeholder="Código">
      </div>
      <div class="form-group">
-         <label for="descricao">Descrição</label>
-         <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Descrição">
+         <label for="descricao">Nome Companhia</label>
+         <input type="text" class="form-control" name="nome" id="nome" placeholder="Descrição">
+     </div>
+     <div class="form-group">
+         <label for="descricao">Telefone</label>
+         <input type="number" class="form-control" name="t" id="t" placeholder="Descrição">
      </div>
     
      <button type="submit" class="btn btn-info">Adicionar</button>
